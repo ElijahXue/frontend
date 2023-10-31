@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const navigation = [
   { name: 'Employees', href: '/employees'},
   { name: 'Customers', href: '/customers'},
-  { name: 'Dictionary', href: 'other' },
+  { name: 'Dictionary', href: '/dictionary' },
   { name: 'Log in', href: 'other2'},
 ]
 
@@ -49,7 +49,7 @@ export default function Header(props) {
                         key={item.name}
                         to={item.href}
                         className ={({isActive})=>{
-                          console.log(item.href +' '+ isActive);
+                          // console.log(item.href +' '+ isActive);
                           return ('rounded-md px-3 py-2 text-sm font-medium'+ (isActive ? ('no-underline bg-gray-900 text-white'):('no-underline text-gray-300 hover:bg-gray-700 hover:text-white')))
                         }}
                       >
@@ -113,9 +113,10 @@ export default function Header(props) {
     <div class='bg-gray-200'>
 
 
-     <div className="App max-w-7xl  m-auto bg-gray-300 min-h-screen p-2" >
-      {props.children}</div>;
-      </div>;
+      <div className="App max-w-7xl  m-auto bg-gray-300 min-h-screen p-3" >
+        {props.children}
+      </div>
+    </div>
 
      </>
     
