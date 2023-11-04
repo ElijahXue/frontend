@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function EditEmployee(props) {
+export default function AddCustomer(props) {
 
   const [name, setName] = useState(props.name);
   const [role, setRole] = useState(props.role);
@@ -15,7 +15,7 @@ function EditEmployee(props) {
 
   return (
     <>
-     <button onClick={handleShow} className="shadow bg-purple-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">Update</button>
+     <button onClick={handleShow} className="bg-purple-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-red font-bold py-2 px-4 rounded">Update Customer</button>
    
 
       <Modal
@@ -25,14 +25,14 @@ function EditEmployee(props) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Update Employee</Modal.Title>
+          <Modal.Title>Update Customer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form  
           onSubmit={(e)=>{
             e.preventDefault();
             console.log(props.id, role, name);
-            // console.log('hello from edit employee');
+   
             props.updateEmployee(props.id,name,role);
 
           }}
@@ -41,13 +41,14 @@ function EditEmployee(props) {
           <div className="md:flex md:items-center mb-6">
             <div className="md:w-1/3">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="name">
-                Full Name
+                Customer Name
               </label>
             </div>  
             <div className="md:w-2/3">
               <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" 
               id="name" 
               type="text" 
+              placeholder='Google'
               value={name}
               onChange={(e)=>{
                 setName(e.target.value);
@@ -57,13 +58,14 @@ function EditEmployee(props) {
           </div>
           <div className="md:flex md:items-center mb-6">
             <div className="md:w-1/3">
-              <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="role">
-                role
+              <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="industry">
+                Organization
               </label>
             </div>
             <div className="md:w-2/3">
-              <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="name" type="text" 
+              <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="industry" type="text" 
               value={role}
+              placeholder='Tech'
               onChange={(e)=>{
                 setRole(e.target.value);
               }}
@@ -83,6 +85,4 @@ function EditEmployee(props) {
     </>
   );
 }
-
-export default EditEmployee;
 

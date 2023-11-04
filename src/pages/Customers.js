@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { baseURL } from "../shared";
+import AddCustomer from "../components/AddCustomer";
 export default function Customers() {
   const [customers, setCustomers] = useState();
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Customers() {
           <p>Loading...</p>
         )}
       </ul>
+      <AddCustomer/>
     </>
   );
 }

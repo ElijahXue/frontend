@@ -44,7 +44,24 @@ export default function Customer() {
                 </div>
             ) : (<p> </p>)}
 
-            <button onClick={deleteCustomer}>Delete</button>
+            <button onClick={(e) => {
+                const url = baseURL + 'api/customers/' + id;
+                fetch(url, {
+                    method: 'DELETE', headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => {
+
+                    if (!response.ok) {
+                        throw new Error('Something went wrong');
+                    }
+                    // return response.json
+                    navigate('/customers');
+                }).catch((e) => {
+                    console.log(e);
+                })
+
+            }}>Delete</button>
             <br />
             <Link to='/customers'>Go Back </Link>
 
