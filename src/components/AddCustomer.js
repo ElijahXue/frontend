@@ -32,7 +32,7 @@ export default function AddCustomer(props) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              setIndustry('');
+              // setIndustry('');
               console.log('onSubmit',name,industry)
               props.newCustomer(name, industry);
             }}
@@ -91,7 +91,7 @@ export default function AddCustomer(props) {
             className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => {
               props.newCustomer(name, industry);
-              // props.toggleShow();
+             
               console.log(name,industry);
              
             }}

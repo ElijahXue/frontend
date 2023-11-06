@@ -22,6 +22,7 @@ export default function Customers() {
         setCustomers(data.customers);
       })
   }, []);
+  
   function newCustomer(name, industry) {
     const data = { name: name, industry: industry };
     console.log(name);
@@ -42,6 +43,8 @@ export default function Customers() {
     }
     ).then((data) => {
       // hide the modal? 
+      setCustomers([...customers,data.customer]);
+
       toggleShow();
     }).catch((e) => {
       console.log(e);

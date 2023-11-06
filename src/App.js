@@ -7,6 +7,7 @@ import Customers from './pages/Customers';
 import Dictionary from './pages/Dictionary';
 import Customer from './pages/Customer';
 import Definition from './pages/definition';
+
 function App() {
   
 
