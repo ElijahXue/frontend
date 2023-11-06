@@ -4,6 +4,10 @@ import { baseURL } from "../shared";
 import AddCustomer from "../components/AddCustomer";
 export default function Customers() {
   const [customers, setCustomers] = useState();
+  const [show, setShow] = useState(false);
+  function toggleShow() {
+    setShow(!show)
+  }
   useEffect(() => {
     console.log('fetching..')
     fetch(baseURL + "api/customers/")
@@ -21,7 +25,7 @@ export default function Customers() {
   function newCustomer(name, industry) {
     const data = { name: name, industry: industry };
     console.log(name);
-    const url = baseURL + 'api/customers';
+    const url = baseURL + 'api/customers/';
     fetch(
       url, {
       method: 'POST',
@@ -36,9 +40,10 @@ export default function Customers() {
       }
       return response.json();
     }
-    ).then((data)=>{
-
-    }).catch((e)=>{
+    ).then((data) => {
+      // hide the modal? 
+      toggleShow();
+    }).catch((e) => {
       console.log(e);
     });
 
@@ -62,7 +67,7 @@ export default function Customers() {
         )}
       </ul>
 
-      <AddCustomer newCustomer={newCustomer} />
+      <AddCustomer newCustomer={newCustomer} show={show} toggleShow={toggleShow} />
 
     </>
   );
