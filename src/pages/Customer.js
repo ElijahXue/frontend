@@ -31,11 +31,19 @@ export default function Customer() {
     useEffect(() => {
         // console.log("useEffect")
         const url = baseURL + 'api/customers/' + id
-        fetch(url)
+        fetch(url,{
+            headers:{
+                'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('access')
+            }
+        })
             .then((response) => {
                 if (response.status === 404) {
                     navigate('/404');
                     setNotfound(true);
+                } else if (response.status === 401) {
+                    navigate('/login');
+                    // setNotfound(true);
                 }
                 if (!response.ok) {
                     throw new Error(' something went wrong')

@@ -7,6 +7,7 @@ import Customers from './pages/Customers';
 import Dictionary from './pages/Dictionary';
 import Customer from './pages/Customer';
 import Definition from './pages/definition';
+import Login from './pages/Login';
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
             {/* <Route path='/definition' element = {<Definition/>}/> */}
             <Route path='/dictionary/:search' element = {<Definition/>}/>
             <Route path='/404' element = {<NotFound/>}/>
+            <Route path='/login' element = {<Login/>}/>
             <Route path='*' element = {<NotFound/>}/>
           </Routes>
         </Header>
