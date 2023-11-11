@@ -1,17 +1,23 @@
-import { useEffect, useState } from "react";
-import { Link, json } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { baseURL } from "../shared";
 import AddCustomer from "../components/AddCustomer";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { LoginContext } from "../App";
 export default function Customers() {
   const [customers, setCustomers] = useState();
   const [show, setShow] = useState(false);
+  const [loggedIn,setloggedIn] = useContext(LoginContext);
+
   const navigate = useNavigate();
+  const location = useLocation();
   function toggleShow() {
     setShow(!show)
   }
   useEffect(() => {
-    console.log('fetching..')
+    // const [loggedIn,setloggedIn] = useContext(LoginContext)
+    // console.log('fetching..')
+
     const url = baseURL + "api/customers/";
     fetch(url, {
       headers: {
@@ -21,15 +27,21 @@ export default function Customers() {
     })
       .then((response) => {
         if (response.status === 401) {
-          navigate('/login')
+          setloggedIn(false);
+          navigate('/login', {
+            state: {
+              previousUrl: location.pathname,
+            }
+          })
+          // console.log("customers" , location.pathname);
         }
         if (!response.ok) {
-          throw new Error('Something went wrong');
+          // throw new Error('Something went wrong');
         }
         return response.json(); // Parse the response JSON
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setCustomers(data.customers);
       })
   }, []);
@@ -48,7 +60,7 @@ export default function Customers() {
     }
     ).then((response) => {
       if (!response.ok) {
-        throw new Error('Something Went wrong');
+        // throw new Error('Something Went wrong');
       }
       return response.json();
     }

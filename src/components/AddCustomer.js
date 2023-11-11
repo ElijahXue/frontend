@@ -4,10 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 export default function AddCustomer(props) {
   const [name, setName] = useState('');
   const [industry, setIndustry] = useState('');
-  const [show, setShow] = useState(props.show);
+  // const [show, setShow] = useState(props.show);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function AddCustomer(props) {
 
       <Modal
         show={props.show}
-        onHide={handleClose}
+        onHide={props.toggleShow}
         backdrop="static"
         keyboard={false}
       >
