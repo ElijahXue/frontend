@@ -10,6 +10,7 @@ import Definition from './pages/definition';
 import { createContext, useState, useEffect } from 'react';
 import Login from './pages/Login';
 import { baseURL } from './shared';
+import Register from './pages/Register';
 
 
 export const LoginContext = createContext();
@@ -17,7 +18,7 @@ export const LoginContext = createContext();
 function App() {
 
   useEffect(() => {
-    function refreshTokens(){
+    function refreshTokens() {
       if (localStorage.refresh) {
         const url = baseURL + 'api/token/refresh/';
         fetch(url, {
@@ -69,8 +70,10 @@ function App() {
             {/* <Route path='/definition' element = {<Definition/>}/> */}
             <Route path='/dictionary/:search' element={<Definition />} />
             <Route path='/404' element={<NotFound />} />
-            <Route path='/login' element={<Login />} />
             <Route path='*' element={<NotFound />} />
+            <Route path='/login' element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
           </Routes>
         </Header>
       </BrowserRouter>

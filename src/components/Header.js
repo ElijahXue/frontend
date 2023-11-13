@@ -17,7 +17,7 @@ const navigation = [
 export default function Header(props) {
   const [loggedIn, setloggedIn] = useContext(LoginContext);
   useEffect(() => {
-    console.log(loggedIn)
+    console.log('Header',loggedIn)
   })
 
 
