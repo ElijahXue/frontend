@@ -9,18 +9,22 @@ import useFetch from "../hooks/UseFetch";
 
 
 export default function Definition() {
-  // const [word, setWord] = useState([]);
-  // const [notfound, setNotfound] = useState(false);
-  // const [error, setError] = useState(false);
+  
 
 
   console.log(useParams());
   let { search } = useParams();
   const navigate = useNavigate();
- 
-  const [word, errorStatus] = useFetch(
+  // nesting destructing 
+  const {data:[{meanings:word}] = [{}], errorStatus} = useFetch(
     'https://api.dictionaryapi.dev/api/v2/entries/en/' + search
   )
+
+  
+  useEffect(()=>{
+
+    // console.log("word",data)
+  })
  
 
   if (errorStatus === 404) {
@@ -47,10 +51,10 @@ export default function Definition() {
   
   return (
     <>
-      {word?.[0]?.meanings?(
+      {word?(
         <>
          <h1>Here is a definition</h1>
-          {word[0].meanings.map((meaning) => {
+          {word.map((meaning) => {
             return (
               
               <p key={v4()} >

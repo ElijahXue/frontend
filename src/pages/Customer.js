@@ -16,12 +16,7 @@ export default function Customer() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        // console.log('setChanged', changed);
-        // console.log('tmpcustomer', tempCustomer);
-        // console.log('customer', customer);
 
-    })
     useEffect(() => {
         if (!customer) return;
         if (!tempCustomer) return;
@@ -34,7 +29,6 @@ export default function Customer() {
     }, [customer, tempCustomer]);
 
     useEffect(() => {
-        // console.log("useEffect")
         const url = baseURL + 'api/customers/' + id
         fetch(url, {
             headers: {
@@ -72,7 +66,7 @@ export default function Customer() {
             })
     }, [id, navigate, location.pathname])
 
-
+   
     function updateCustomer(e) {
         e.preventDefault();
         const url = baseURL + 'api/customers/' + id;
