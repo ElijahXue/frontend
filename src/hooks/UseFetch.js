@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 export default function useFetch(url, { method, headers, body } = {}) {
@@ -61,11 +61,6 @@ export default function useFetch(url, { method, headers, body } = {}) {
                 return response.json();
             }
             ).then((d) => {
-                // console.log('in the d', Object.values(d)[0]);
-                // console.log('in the c', Object.values(data));
-                // let test = ;
-
-
                 const submitted = Object.values(d)[0];
                 console.log('submitted', submitted);
                 const newState = {...data};
@@ -86,10 +81,8 @@ export default function useFetch(url, { method, headers, body } = {}) {
            
 
                 // toggleShow();
-            }).catch((e) => {
-                console.log("error", e);
-                setErrorStatus(e)
-            });
+                
+            }).catch(error => setErrorStatus(error));
 
     }
     return { request, appendData, data, errorStatus };

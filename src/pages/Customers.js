@@ -1,17 +1,12 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { baseURL } from "../shared";
 import AddCustomer from "../components/AddCustomer";
-import { useNavigate, useLocation } from 'react-router-dom';
 import useFetch from "../hooks/UseFetch";
-import { LoginContext } from "../App";
 export default function Customers() {
   // const [customers, setCustomers] = useState();
   const [show, setShow] = useState(false);
-  const [loggedIn, setloggedIn] = useContext(LoginContext);
 
-  const navigate = useNavigate();
-  const location = useLocation();
   function toggleShow() {
     setShow(!show)
   }
@@ -33,7 +28,7 @@ export default function Customers() {
     console.log("customers:", customers);
     // console.log("errorStatus:", errorStatus);
 
-  },[request,appendData,customers,errorStatus]);
+  }, [request, appendData, customers, errorStatus]);
 
   useEffect(() => {
     request()
@@ -43,11 +38,11 @@ export default function Customers() {
 
   function newCustomer(name, industry) {
     appendData({ name: name, industry: industry });
-    if (!errorStatus){
+    if (!errorStatus) {
       toggleShow();
     }
-    
-    
+
+
 
   }
 
