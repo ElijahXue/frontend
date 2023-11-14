@@ -24,7 +24,6 @@ export default function useFetch(url, { method, headers, body } = {}) {
                     })
                 }
                 if (!response.ok) {
-                    // setErrorStatus(response.status); // Set errorStatus to the HTTP status code in case of an error
                     throw (response.status);
                 }
                 return response.json();
@@ -32,7 +31,6 @@ export default function useFetch(url, { method, headers, body } = {}) {
             .then((data) => {
                 setData(data);
             }).catch((e) => {
-                // console.log("catch error",e)
                 setErrorStatus(e);
             })
 
@@ -63,11 +61,10 @@ export default function useFetch(url, { method, headers, body } = {}) {
             ).then((d) => {
                 const submitted = Object.values(d)[0];
                 console.log('submitted', submitted);
-                const newState = {...data};
+                const newState = { ...data };
                 console.log('newState', newState);
                 Object.values(newState)[0].push(submitted);
                 setData(newState)
-
 
                 // codes below are also useable 
 
@@ -78,12 +75,36 @@ export default function useFetch(url, { method, headers, body } = {}) {
                 // newState[Object.keys(data)[0]] = [...newState[Object.keys(data)[0]], submitted];
                 // setData(newState);
 
-           
-
                 // toggleShow();
-                
+
             }).catch(error => setErrorStatus(error));
 
     }
-    return { request, appendData, data, errorStatus };
+
+    function deleteData() {
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: headers,
+            body: body
+        })
+            .then((response) => {
+                if (!response.ok) {
+                } else if (response.status === 401) {
+                    navigate('/login', {
+                        state: {
+                            previousUrl: location.pathname,
+                        }
+                    })
+                }
+                // setError(undefined);
+                navigate('/customers');
+            }).catch((e) => {
+                // setError(true);
+            })
+
+
+
+    }
+    return { request, appendData, deleteData, data, errorStatus };
 }

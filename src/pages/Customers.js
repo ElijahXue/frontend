@@ -36,6 +36,10 @@ export default function Customers() {
   }, []);
 
 
+
+
+
+  
   function newCustomer(name, industry) {
     appendData({ name: name, industry: industry });
     if (!errorStatus) {

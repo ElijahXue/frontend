@@ -4,28 +4,17 @@ import NotFound from "../components/NotFound";
 import { useLocation } from "react-router-dom";
 import { baseURL } from "../shared";
 import { LoginContext } from "../App";
-import useFetch from "../hooks/UseFetch";
 export default function Customer() {
     const { id } = useParams();
     const [customer, setCustomer] = useState();
     const [notfound, setNotfound] = useState();
     const [error, setError] = useState();
     const [tempCustomer, setTempCustomer] = useState();
-    const [loggedIn, setloggedIn] = useContext(LoginContext);
+    const [loggedIn,setloggedIn] = useContext(LoginContext);
     const [changed, setChanged] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
-    const { request, deleteData, data: { customers } = {}, errorStatus } = useFetch(
-        baseURL + 'api/customers/' + id,
-        {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('access')
-            }
-        }
-    );
 
     useEffect(() => {
         if (!customer) return;
@@ -76,7 +65,7 @@ export default function Customer() {
             })
     }, [id, navigate, location.pathname])
 
-
+   
     function updateCustomer(e) {
         e.preventDefault();
         const url = baseURL + 'api/customers/' + id;
@@ -189,9 +178,31 @@ export default function Customer() {
                         <button
                             className=" bg-blue-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                             onClick={(e) => {
-                                deleteData();
+                                const url = baseURL + 'api/customers/' + id;
+                                fetch(url, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        Authorization: 'Bearer ' + localStorage.getItem('access')
+
+                                    }
+                                }).then((response) => {
+                                    if (!response.ok) {
+                                    } else if (response.status === 401) {
+                                        setloggedIn(false);
+                                        navigate('/login', {
+                                            state: {
+                                                previousUrl: location.pathname,
+                                            }
+                                        })
+                                    }
+                                    setError(undefined);
+                                    navigate('/customers');
+                                }).catch((e) => {
+                                    setError(true);
+                                })
                             }}
-                        >
+                            >
                             Delete
                         </button>
                     </div>
