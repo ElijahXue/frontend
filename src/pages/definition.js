@@ -5,50 +5,25 @@ import { v4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import NotFound from "../components/NotFound";
 import DefinitionSearch from "../components/DefinitionSearch";
+import useFetch from "../hooks/UseFetch";
+
+
 export default function Definition() {
-  const [word, setWord] = useState([]);
-  const [notfound, setNotfound] = useState(false);
-  const [error, setError] = useState(false);
+  // const [word, setWord] = useState([]);
+  // const [notfound, setNotfound] = useState(false);
+  // const [error, setError] = useState(false);
 
 
   console.log(useParams());
   let { search } = useParams();
   const navigate = useNavigate();
+ 
+  const [word, errorStatus] = useFetch(
+    'https://api.dictionaryapi.dev/api/v2/entries/en/' + search
+  )
+ 
 
-  useEffect(() => {
-    // const url = 'https://httpstat.us/504'
-    const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + search
-    fetch(url)
-      .then((response) => {
-        console.log(response.status)
-        console.log('response.ok: '+response.ok)
-        if (response.status === 404) {
-          setNotfound(true);
-        }
-
-        if (!response.ok){
-          setError(true);
-          throw new Error('Something went wrong');
-        }
-
-        return response.json()
-      })
-      .then((data) => {
-        if (data && Array.isArray(data) && data.length > 0 && data[0].meanings) {
-          setWord(data[0].meanings);
-        } else {
-          setWord(null);
-          console.error("Received data is undefined or has an unexpected structure:", data);
-          // Handle the error or unexpected data structure here
-        }
-      }
-      ).catch((e)=>{
-
-        console.log("catch: " + e.message);
-      });
-  }, []);
-
-  if (notfound === true) {
+  if (errorStatus === 404) {
     return (
       <>
         <NotFound />
@@ -58,7 +33,7 @@ export default function Definition() {
 
     );
   }
-  if (error === true) {
+  if (errorStatus) {
     return (
       <>
          <p> some thing went wrong, try again?</p>
@@ -68,13 +43,14 @@ export default function Definition() {
     );
   }
 
+  // return <p> work in progress </p>
   
   return (
     <>
-      {word ?(
+      {word?.[0]?.meanings?(
         <>
          <h1>Here is a definition</h1>
-          {word.map((meaning) => {
+          {word[0].meanings.map((meaning) => {
             return (
               
               <p key={v4()} >
