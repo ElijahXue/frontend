@@ -88,7 +88,7 @@ export default function useFetch(url, { method, headers, body } = {}) {
                 // toggleShow();
             }).catch((e) => {
                 console.log("error", e);
-                setErrorStatus(e);
+                setErrorStatus(e)
             });
 
     }

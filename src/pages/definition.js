@@ -10,21 +10,21 @@ import useFetch from "../hooks/UseFetch";
 
 export default function Definition() {
   
-
+  
 
   console.log(useParams());
   let { search } = useParams();
   const navigate = useNavigate();
-  // nesting destructing 
-  const {data:[{meanings:word}] = [{}], errorStatus} = useFetch(
+  // nesting destructing
+  const {request,data:[{meanings:word}] = [{}], errorStatus} = useFetch(
     'https://api.dictionaryapi.dev/api/v2/entries/en/' + search
   )
 
   
   useEffect(()=>{
-
+    request();
     // console.log("word",data)
-  })
+  },[])
  
 
   if (errorStatus === 404) {

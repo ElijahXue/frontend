@@ -47,41 +47,7 @@ export default function Customers() {
       toggleShow();
     }
     
-    // const data = { name: name, industry: industry };
-    // const url = baseURL + 'api/customers/';
-    // useFetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: 'Bearer ' + localStorage.getItem('access')
-    //   },
-    //   body: JSON.stringify(data)
-    // }
-    // );
-
-
-    // fetch(
-    //   url, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // }
-    // ).then((response) => {
-    //   if (!response.ok) {
-    //     // throw new Error('Something Went wrong');
-    //   }
-    //   return response.json();
-    // }
-    // ).then((data) => {
-    //   // hide the modal? 
-    //   setCustomers([...customers, data.customer]);
-
-    //   toggleShow();
-    // }).catch((e) => {
-    //   console.log(e);
-    // });
+    
 
   }
 
